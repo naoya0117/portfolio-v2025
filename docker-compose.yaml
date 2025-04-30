@@ -1,0 +1,17 @@
+services:
+  web:
+    build:
+      context: './dev-docker/web/'
+      dockerfile: 'node.Dockerfile'
+    volumes:
+      - "./web/:/web/"
+    ports:
+      - "3000:3000"
+  api:
+    build:
+      context: './dev-docker/api/'
+      dockerfile: 'go.Dockerfile'
+  wp:
+    build:
+      context: './dev-docker/wp/'
+      dockerfile: 'wordpress.Dockerfile'

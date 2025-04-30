@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naoya - エンジニアポートフォリオ</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>Naoya's Portfolio</h1>
+            <nav>
+                <ul>
+                    <li><a href="#about">自己紹介</a></li>
+                    <li><a href="#background">経歴</a></li>
+                    <li><a href="#skills">技術経験</a></li>
+                    <li><a href="#team-projects">チーム開発経験</a></li>
+                    <li><a href="#personal-projects">個人開発・趣味</a></li>
+                    <li><a href="#work-experience">実務経験</a></li>
+                    <li><a href="#blog">ブログ</a></li>
+                    <li><a href="#contact">連絡先</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>エンジニアを目指す学生のポートフォリオ</h2>
+                <p>Web開発、Linux、コンテナ技術を中心に学習中です</p>
+                <div class="hero-buttons">
+                    <a href="#contact" class="btn primary">連絡する</a>
+                    <a href="#skills" class="btn secondary">スキルを見る</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">自己紹介</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>このたびはご訪問いただきありがとうございます。</p>
+                    <p>私は、情報科学系の大学院に在籍しているnaoyaと申します。エンジニアを志しており、インターンシップで業務の経験を積みながら、web開発やLinuxの勉強をしております。</p>
+                    <p>このページを通して、エンジニアの先輩方とのつながりが少しでもできたらうれしいです。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="background" class="section">
+        <div class="container">
+            <h2 class="section-title">経歴</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-date">2003年1月</div>
+                    <div class="timeline-content">
+                        <h3>誕生</h3>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2021年3月</div>
+                    <div class="timeline-content">
+                        <h3>静岡の普通科高校卒業</h3>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2021年4月</div>
+                    <div class="timeline-content">
+                        <h3>大阪の情報系の大学に入学</h3>
+                        <p>初めてPCに触る。学部では、プログラミングやソフトウェア工学の基礎を学ぶ。</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2025年3月</div>
+                    <div class="timeline-content">
+                        <h3>大学を卒業</h3>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-date">2025年4月</div>
+                    <div class="timeline-content">
+                        <h3>同大学の修士課程に進学</h3>
+                        <p>現在に至る</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section">
+        <div class="container">
+            <h2 class="section-title">技術経験</h2>
+            <div class="skills-content">
+                <div class="skill-category">
+                    <h3>主要スキル</h3>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <h4>Linux</h4>
+                            <p>学部1年生の冬からシェルに興味を持ち自分のメインPCにインスト−ル。開発環境やデスクトップ環境をいじりながら、シェル操作や設定ファイルの基礎を学んだ。ArchLinuxを愛用している。</p>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="progress-bar" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <h4>Docker</h4>
+                            <p>学部3年時にweb開発を始めたことがきっかけで入門。いろんな場面で広く利用しており、学部4年時はDockerをテーマとした卒業研究に取り組んだ。</p>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="progress-bar" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <h4>Nginx</h4>
+                            <p>webアプリを公開する際のwebサーバとして利用。また、保有するVPS上で複数のアプリケーションを公開するためのリバースプロキシにも利用。</p>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="progress-bar" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <h4>Kubernetes</h4>
+                            <p>修士1年の春から入門。OSS(Helm Chart)や自作アプリケーションのデプロイを行った。ディストリビューションはk3s。修論テーマとして検討中。</p>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="progress-bar" style="width: 70%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <h4>React (Javascript, Typescript)</h4>
+                            <p>学部3年生時にweb開発を始めたことがきっかけで入門。静的アプリの開発を学んだ。</p>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="progress-bar" style="width: 75%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <h4>Laravel (PHP)</h4>
+                            <p>学部3年生の冬から今に至るまでインターンシップ先の業務にて利用。MVCモデルやバックエンドの基礎を学んだ。</p>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="progress-bar" style="width: 80%"></div>
+                        </div>
+                    </div>
+                    <div class="skill-item">
+                        <div class="skill-info">
+                            <h4>MySQL</h4>
+                            <p>web開発で広く利用。SQL操作やトランザクションについて学習。</p>
+                        </div>
+                        <div class="skill-progress">
+                            <div class="progress-bar" style="width: 75%"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3>その他のスキル</h3>
+                    <p>授業や研究でそれなりに利用:</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">C</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">Spring Boot</span>
+                        <span class="skill-tag">FastAPI</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                    </div>
+                    <p>学習中・興味のある技術:</p>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Go</span>
+                        <span class="skill-tag">Web Assembly</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="team-projects" class="section">
+        <div class="container">
+            <h2 class="section-title">チーム開発経験</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>MinecraftBotContest</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">Python</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <p>プログラミング初学者のための学内プログラミングコンテストの開発スタッフとして参加。キーボードをエミュレートし、C言語でマイクラのキャラを操作できる関数を作成。機能追加を3人チームで行った。</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>springboot-calendar-app</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">Java</span>
+                            <span class="project-tag">Spring Boot</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <p>学部3年の授業にて作成したユーザの予定を登録・削除・共有するためのカレンダーアプリ。4人チームで作成。授業内の評価で2位を獲得。</p>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>関西オデッセイ</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">React</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <p>2023年の学生ハッカソンイベントKC3Hack2023に参加。「関西をええかんじに」をテーマとした観光スポットを回りながらポイントを獲得するスタンプラリー形式のゲームを6人チームで作成。デイジイエル賞を受賞。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="personal-projects" class="section">
+        <div class="container">
+            <h2 class="section-title">個人開発・趣味</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-header">
+                        <h3>vim-tetris</h3>
+                        <div class="project-tags">
+                            <span class="project-tag">C</span>
+                            <span class="project-tag">Docker</span>
+                        </div>
+                    </div>
+                    <div class="project-body">
+                        <p>vimのキーバインドやモードを搭載したtetrisです。vimの学習用アプリケーションとして作成し、jhlkでブロックのブロック操作や、:w, :q, dd, yを用いてブロックの削除を行います。1ヶ月の期間で作成し、授業内で2位の評価をいただきました。内部でマルチスレッドの排他制御等を行っています。</p>
+                        <div class="project-links">
+                            <a href="#" class="project-link"><i class="fab fa-github"></i> GitHub</a>
+                            <a href="#" class="project-link"><i class="fas fa-external-link-alt"></i> Demo</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="work-experience" class="section">
+        <div class="container">
+            <h2 class="section-title">実務経験</h2>
+            <div class="work-item">
+                <div class="work-header">
+                    <h3>オフィスナビ株式会社</h3>
+                    <p class="work-period">2023年12月 - 現在</p>
+                </div>
+                <div class="work-body">
+                    <p>物件検索サイトや社内サイトの開発に携わらせていただいています。</p>
+                    <div class="work-links">
+                        <a href="https://www.office-navi.jp" target="_blank" class="work-link">オフィスナビ</a>
+                        <a href="https://www.rental-office-search.jp" target="_blank" class="work-link">rental-office-search</a>
+                    </div>
+                    <div class="work-tags">
+                        <span class="work-tag">Laravel</span>
+                        <span class="work-tag">React</span>
+                        <span class="work-tag">jQuery</span>
+                        <span class="work-tag">MySQL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="blog" class="section">
+        <div class="container">
+            <h2 class="section-title">ブログの更新記事</h2>
+            <div class="blog-content">
+                <p>近日公開予定...</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">連絡先</h2>
+            <div class="contact-content">
+                <p>以下の方法でご連絡いただけます。お気軽にお問い合わせください。</p>
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <h3>Email</h3>
+                        <p>naoya@example.com</p>
+                    </div>
+                    <div class="contact-method">
+                        <i class="fab fa-github"></i>
+                        <h3>GitHub</h3>
+                        <a href="https://github.com/naoya" target="_blank">github.com/naoya</a>
+                    </div>
+                    <div class="contact-method">
+                        <i class="fab fa-twitter"></i>
+                        <h3>Twitter</h3>
+                        <a href="https://twitter.com/naoya" target="_blank">@naoya</a>
+                    </div>
+                </div>
+                <div class="contact-form">
+                    <h3>お問い合わせフォーム</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">お名前</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">メールアドレス</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">メッセージ</label>
+                            <textarea id="message" name="message" rows="5" required></textarea>
+                        </div>
+                        <button type="submit" class="btn primary">送信</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Naoya - All Rights Reserved</p>
+            <div class="social-links">
+                <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
