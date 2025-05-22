@@ -10,17 +10,17 @@ export default function Contact() {
           <div className="contact-method">
             <i className="fas fa-envelope"></i>
             <h3>Email</h3>
-            <p>naoya@example.com</p>
+            <a href="mailto:naoya.portfolio@gmail.com">naoya.portfolio@gmail.com</a>
           </div>
           <div className="contact-method">
             <i className="fab fa-github"></i>
-            <h3>GitHub</h3>
-            <Link href="https://github.com/naoya" target="_blank">github.com/naoya</Link>
+            <h3>GitHub（個人用）</h3>
+            <Link href="https://github.com/naoya0117" target="_blank" rel="noopener noreferrer">github.com/naoya0117</Link>
           </div>
           <div className="contact-method">
-            <i className="fab fa-twitter"></i>
-            <h3>Twitter</h3>
-            <Link href="https://twitter.com/naoya" target="_blank">@naoya</Link>
+            <i className="fab fa-github"></i>
+            <h3>GitHub（仕事用）</h3>
+            <Link href="https://github.com/n-matsuhashi" target="_blank" rel="noopener noreferrer">github.com/n-matsuhashi</Link>
           </div>
         </div>
         <div className="contact-form">

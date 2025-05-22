@@ -10,8 +10,7 @@ export default function PersonalProjects() {
           tags={["C", "Docker"]}
           description="vimのキーバインドやモードを搭載したtetrisです。vimの学習用アプリケーションとして作成し、jhlkでブロックのブロック操作や、:w, :q, ddを用いてブロックの削除を行います。1ヶ月の期間で作成し、授業内で2位の評価をいただきました。内部でマルチスレッドの排他制御等を行っています。"
           links={[
-            { url: "#", label: "GitHub", icon: "fab fa-github" },
-            { url: "#", label: "Demo", icon: "fas fa-external-link-alt" }
+            { url: "https://github.com/naoya0117/vim-tetris", label: "GitHub", icon: "fab fa-github" }
           ]}
         />
       </div>
