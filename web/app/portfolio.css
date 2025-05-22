@@ -647,6 +647,37 @@ footer .container {
     width: 100%;
 }
 
+/* スライド遷移用のスタイル */
+.nav-link {
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.nav-link:hover {
+    color: var(--accent-color);
+    transform: translateY(-2px);
+}
+
+/* セクション遷移アニメーション */
+.section {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.section.slide-transition {
+    opacity: 0.3;
+    transform: translateX(-20px);
+}
+
+/* スムーズなスクロール動作 */
+html {
+    scroll-behavior: smooth;
+}
+
+/* スライド遷移時のページロック */
+body.slide-transition-active {
+    overflow: hidden;
+}
+
 /* プログレスバーアニメーション */
 .skill-progress .progress-bar {
     width: 0;
