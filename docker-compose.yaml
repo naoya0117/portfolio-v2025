@@ -12,6 +12,32 @@ services:
       context: './dev-docker/api/'
       dockerfile: 'go.Dockerfile'
   wp:
-    build:
-      context: './dev-docker/wp/'
-      dockerfile: 'wordpress.Dockerfile'
+    image: 'docker.io/bitnami/wordpress:6-debian-12'
+    ports:
+      - '8080:8080'
+      - '8443:8443'
+    volumes:
+      - './wp:/bitnami/wordpress'
+    depends_on:
+      - wp-db
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - WORDPRESS_DATABASE_HOST=wp-db
+      - WORDPRESS_DATABASE_PORT_NUMBER=3306
+      - WORDPRESS_DATABASE_USER=bn_wordpress
+      - WORDPRESS_DATABASE_NAME=bitnami_wordpress
+  wp-db:
+    image: 'bitnami/mariadb:11.4-debian-12'
+    volumes:
+      - 'wp-db_data:/bitnami/mariadb'
+    environment:
+      # ALLOW_EMPTY_PASSWORD is recommended only for development.
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_USER=bn_wordpress
+      - MARIADB_DATABASE=bitnami_wordpress
+volumes:
+  wordpress_data:
+    driver: local
+  wp-db_data:
+    driver: local
