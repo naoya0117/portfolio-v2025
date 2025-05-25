@@ -1,0 +1,3 @@
+[submodule "web"]
+	path = web
+	url = git@github.com:naoya0117/portfolio-v2025-web.git
