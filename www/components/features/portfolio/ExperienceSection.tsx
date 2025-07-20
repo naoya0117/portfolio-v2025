@@ -1,59 +1,49 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { useQuery } from "@apollo/client"
-import { CalendarDays, MapPin } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { GET_EXPERIENCES } from "@/lib/graphql/queries"
-import { Experience } from "@/lib/types/generated"
 
-const formatDate = (dateString: string) => {
-  return new Date(dateString).toLocaleDateString("ja-JP", {
-    year: "numeric",
-    month: "long"
-  })
-}
 
-const calculateDuration = (startDate: string, endDate?: string) => {
-  const start = new Date(startDate)
-  const end = endDate ? new Date(endDate) : new Date()
-  const months = (end.getFullYear() - start.getFullYear()) * 12 + 
-                 (end.getMonth() - start.getMonth())
-  
-  const years = Math.floor(months / 12)
-  const remainingMonths = months % 12
-  
-  if (years === 0) {
-    return `${remainingMonths}ヶ月`
-  } else if (remainingMonths === 0) {
-    return `${years}年`
-  } else {
-    return `${years}年 ${remainingMonths}ヶ月`
+// 静的データ（個人の経歴に基づくタイムライン）
+const experiences = [
+  {
+    id: "1",
+    date: "2025年4月",
+    title: "同大学の修士課程に進学",
+    description: "情報科学系大学院",
+    isCurrent: true
+  },
+  {
+    id: "2", 
+    date: "2025年3月",
+    title: "大学を卒業",
+    description: "情報系大学",
+    isCurrent: false
+  },
+  {
+    id: "3",
+    date: "2021年4月",
+    title: "大阪の情報系の大学に入学",
+    description: "初めてPCに触る。学部では、プログラミングやソフトウェア工学の基礎を学ぶ。",
+    isCurrent: false
+  },
+  {
+    id: "4",
+    date: "2021年3月",
+    title: "静岡の普通科高校卒業",
+    description: "",
+    isCurrent: false
+  },
+  {
+    id: "5",
+    date: "2003年1月",
+    title: "誕生",
+    description: "",
+    isCurrent: false
   }
-}
+]
 
 export const ExperienceSection = () => {
-  const { data, loading } = useQuery<{ experiences: Experience[] }>(GET_EXPERIENCES)
-  const experiences = data?.experiences || []
-
-  if (loading) {
-    return (
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <div className="h-8 w-32 bg-muted rounded mx-auto mb-4"></div>
-            <div className="h-6 w-64 bg-muted rounded mx-auto"></div>
-          </div>
-          <div className="max-w-4xl mx-auto space-y-8">
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="h-48 bg-muted rounded-lg animate-pulse"></div>
-            ))}
-          </div>
-        </div>
-      </section>
-    )
-  }
 
   return (
     <section id="experience" className="py-20">
@@ -66,88 +56,52 @@ export const ExperienceSection = () => {
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">経歴</h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            これまでの職歴と、携わってきたプロジェクトについて紹介します。
+            学歴と個人的な技術学習の経歴について紹介します。
           </p>
         </motion.div>
 
         <div className="max-w-4xl mx-auto">
           <div className="relative">
             {/* Timeline line */}
-            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-border transform md:-translate-x-0.5"></div>
+            <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border"></div>
 
-            <div className="space-y-12">
-              {experiences.map((experience: Experience, index: number) => (
+            <div className="space-y-8">
+              {experiences.map((experience, index: number) => (
                 <motion.div
                   key={experience.id}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, x: -30 }}
+                  whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className={`relative flex items-center ${
-                    index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                  }`}
+                  className="relative flex items-start"
                 >
                   {/* Timeline dot */}
-                  <div className="absolute left-4 md:left-1/2 w-3 h-3 bg-primary rounded-full transform -translate-x-1/2 z-10">
+                  <div className="absolute left-4 w-3 h-3 bg-primary rounded-full z-10 mt-2">
                     {experience.isCurrent && (
                       <div className="absolute inset-0 bg-primary rounded-full animate-ping"></div>
                     )}
                   </div>
 
                   {/* Content */}
-                  <div className="w-full md:w-1/2 ml-12 md:ml-0">
-                    <div className={index % 2 === 0 ? "md:mr-8" : "md:ml-8"}>
-                      <Card className="hover:shadow-lg transition-shadow duration-300">
-                        <CardHeader>
-                          <div className="flex items-start justify-between">
-                            <div>
-                              <CardTitle className="text-lg mb-1">
-                                {experience.position}
-                              </CardTitle>
-                              <p className="text-primary font-semibold mb-2">
-                                {experience.company}
-                              </p>
-                            </div>
-                            {experience.isCurrent && (
-                              <Badge className="bg-green-500 hover:bg-green-600">
-                                現在
-                              </Badge>
-                            )}
-                          </div>
-
-                          <div className="flex items-center text-sm text-muted-foreground space-x-4">
-                            <div className="flex items-center space-x-1">
-                              <CalendarDays className="h-4 w-4" />
-                              <span>
-                                {formatDate(experience.startDate)} - {" "}
-                                {experience.endDate ? formatDate(experience.endDate) : "現在"}
-                              </span>
-                            </div>
-                            <div className="flex items-center space-x-1">
-                              <MapPin className="h-4 w-4" />
-                              <span>
-                                {calculateDuration(experience.startDate, experience.endDate)}
-                              </span>
-                            </div>
-                          </div>
-                        </CardHeader>
-
-                        <CardContent>
-                          <p className="text-muted-foreground mb-4 leading-relaxed">
-                            {experience.description}
-                          </p>
-
-                          <div>
-                            <h4 className="text-sm font-semibold mb-2">使用技術</h4>
-                            <div className="flex flex-wrap gap-2">
-                              {experience.technologies.map((tech: string) => (
-                                <Badge key={tech} variant="secondary" className="text-xs">
-                                  {tech}
-                                </Badge>
-                              ))}
-                            </div>
-                          </div>
-                        </CardContent>
-                      </Card>
+                  <div className="w-full ml-12">
+                    <div className="space-y-2">
+                      <div className="flex items-center gap-3">
+                        <span className="text-sm text-muted-foreground font-mono">
+                          {experience.date}
+                        </span>
+                        {experience.isCurrent && (
+                          <Badge className="bg-green-500 hover:bg-green-600 text-xs">
+                            現在
+                          </Badge>
+                        )}
+                      </div>
+                      <h3 className="text-lg font-semibold text-foreground">
+                        {experience.title}
+                      </h3>
+                      {experience.description && (
+                        <p className="text-muted-foreground">
+                          {experience.description}
+                        </p>
+                      )}
                     </div>
                   </div>
                 </motion.div>

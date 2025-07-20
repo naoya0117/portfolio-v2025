@@ -10,7 +10,6 @@ import { useScrollAnimation } from "@/lib/hooks/useScrollAnimation"
 
 const navigation = [
   { name: "Home", href: "/", icon: User },
-  { name: "Portfolio", href: "/portfolio", icon: Code },
   { name: "Monologue", href: "/monologue", icon: MessageSquare },
   { name: "Blog", href: "/blog", icon: BookOpen },
 ]
@@ -35,7 +34,7 @@ export const Header = () => {
               className="flex items-center space-x-2"
             >
               <Code className="h-6 w-6 text-primary" />
-              <span>Portfolio</span>
+              <span>Naoya's Portfolio</span>
             </motion.div>
           </Link>
 

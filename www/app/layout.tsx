@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Portfolio - Full Stack Developer",
-  description: "Modern portfolio built with Next.js, showcasing skills and projects",
+  title: "Naoya's Portfolio",
+  description: "学生エンジニアのポートフォリオサイト。Web開発、Linux、コンテナ技術を中心に学習中のNaoyaの技術経験と開発プロジェクトを紹介します。",
 };
 
 export default function RootLayout({
@@ -27,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja" className="dark">
+    <html lang="ja">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
