@@ -1,0 +1,44 @@
+# vim: set filetype=yaml.docker-compose :
+services:
+  www:
+    build:
+      context: './www'
+      dockerfile: 'dev.Dockerfile'
+      args:
+        - 'UID=${UID:-1000}'
+        - 'GID=${GID:-1000}'
+    ports:
+      - '3000:3000'
+      - '3001:3001'
+    volumes:
+      - './www:/www'
+  admin:
+    build:
+      context: './admin'
+      dockerfile: 'dev.Dockerfile'
+      args:
+        - 'UID=${UID:-1000}'
+        - 'GID=${GID:-1000}'
+    ports:
+      - '8080:8080'
+    volumes:
+      - './admin:/admin'
+    profiles:
+      - 'mock'
+  api:
+    build:
+      context: './api'
+      dockerfile: 'dev.Dockerfile'
+      args:
+        - 'UID=${UID:-1000}'
+        - 'GID=${GID:-1000}'
+    ports:
+      - '8000:8000'
+    volumes:
+      - './api:/api'
+    profiles:
+      - 'mock'
+  db:
+    image: 'postgres:17.5'
+    profiles:
+      - 'mock'
