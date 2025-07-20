@@ -16,7 +16,7 @@ const teamProjects = [
     teamSize: 3,
     role: "開発スタッフ",
     links: {
-      github: "https://github.com"
+      github: "https://github.com/masaki555/Minecraft_Contest"
     },
     icon: Code
   },
@@ -28,8 +28,8 @@ const teamProjects = [
     teamSize: 10,
     role: "フロントエンド開発",
     links: {
-      demo: "https://example.com",
-      github: "https://github.com"
+      demo: "https://susumukun.vercel.app/",
+      github: "https://github.com/Obanyan2023/susumukun"
     },
     icon: Gamepad2
   },
@@ -55,7 +55,7 @@ const teamProjects = [
     role: "フロントエンド開発",
     award: "デイジイエル賞",
     links: {
-      github: "https://github.com"
+      github: "https://github.com/naoya0117/kansai-odyssey-kc32025"
     },
     icon: Award
   }

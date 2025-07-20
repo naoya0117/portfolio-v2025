@@ -3,7 +3,7 @@
 import { motion } from "framer-motion"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { CalendarDays, Building, MapPin } from "lucide-react"
+import { CalendarDays, Building, MapPin, ExternalLink } from "lucide-react"
 
 // 静的データ
 const workExperience = [
@@ -18,7 +18,11 @@ const workExperience = [
       {
         name: "オフィスナビrental-office-search",
         description: "物件検索サイトの開発・保守",
-        technologies: ["Laravel", "React", "jQuery", "MySQL"]
+        technologies: ["Laravel", "React", "jQuery", "MySQL"],
+        links: [
+          { name: "オフィスナビ", url: "https://www.office-navi.jp" },
+          { name: "rental-office-search", url: "https://www.rental-office-search.jp" }
+        ]
       }
     ],
     isCurrent: true
@@ -107,6 +111,22 @@ export const WorkExperienceSection = () => {
                                 </Badge>
                               ))}
                             </div>
+                            {project.links && project.links.length > 0 && (
+                              <div className="flex flex-wrap gap-2 pt-2">
+                                {project.links.map((link, linkIndex) => (
+                                  <a
+                                    key={linkIndex}
+                                    href={link.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="inline-flex items-center gap-1 text-sm text-primary hover:text-primary/80 transition-colors"
+                                  >
+                                    <ExternalLink className="h-3 w-3" />
+                                    {link.name}
+                                  </a>
+                                ))}
+                              </div>
+                            )}
                           </div>
                         ))}
                       </div>

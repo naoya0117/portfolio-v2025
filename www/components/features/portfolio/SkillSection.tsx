@@ -15,7 +15,8 @@ import {
   Zap,
   Wrench,
   GitBranch,
-  Globe
+  Globe,
+  Briefcase
 } from "lucide-react"
 
 // 静的データ
@@ -32,7 +33,8 @@ const mainSkills = [
     name: "Docker",
     icon: Container,
     description: "学部3年時にweb開発を始めたことがきっかけで入門。いろんな場面で広く利用しており、学部4年時はDockerをテーマとした卒業研究に取り組んだ。",
-    level: "高"
+    level: "高",
+    hasWorkExperience: true
   },
   {
     id: "nginx",
@@ -53,21 +55,32 @@ const mainSkills = [
     name: "React",
     icon: Code,
     description: "学部3年生時にweb開発を始めたことがきっかけで入門。静的アプリの開発を学んだ。(Javascript, Typescript)",
-    level: "中"
+    level: "中",
+    hasWorkExperience: true
   },
   {
     id: "laravel",
     name: "Laravel",
     icon: Layers,
     description: "学部3年生の冬から今に至るまでインターンシップ先の業務にて利用。MVCモデルやバックエンドの基礎を学んだ。(PHP)",
-    level: "中"
+    level: "中",
+    hasWorkExperience: true
   },
   {
     id: "mysql",
     name: "MySQL",
     icon: Database,
     description: "web開発で広く利用。SQL操作やトランザクションについて学習。",
-    level: "中"
+    level: "中",
+    hasWorkExperience: true
+  },
+  {
+    id: "aws",
+    name: "AWS",
+    icon: Cloud,
+    description: "インターン先にて、Lambda関数の構築、デプロイに利用。IAM周りとCloudFormation、Lambda関数の構築を行った。",
+    level: "低",
+    hasWorkExperience: true
   }
 ]
 
@@ -75,7 +88,6 @@ const additionalMainSkills = [
   {
     category: "その他",
     skills: [
-      { name: "AWS", icon: Cloud },
       { name: "Cloudflare", icon: Layers },
       { name: "Traefik", icon: Server }
     ]
@@ -110,7 +122,7 @@ export const SkillSection = () => {
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.3 }}
           className="text-center mb-16"
         >
           <h2 className="text-3xl md:text-4xl font-bold mb-4">技術経験</h2>
@@ -136,7 +148,7 @@ export const SkillSection = () => {
                   key={skill.id}
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
+                  transition={{ duration: 0.3, delay: index * 0.05 }}
                 >
                   <Card className="h-full hover:shadow-lg transition-shadow duration-300">
                     <CardHeader>
@@ -145,9 +157,17 @@ export const SkillSection = () => {
                           <IconComponent className="h-6 w-6 text-primary" />
                         </div>
                         <span>{skill.name}</span>
-                        <Badge variant="secondary" className="ml-auto">
-                          {skill.level}
-                        </Badge>
+                        <div className="ml-auto flex items-center gap-2">
+                          {skill.hasWorkExperience && (
+                            <Badge className="text-xs bg-green-600 hover:bg-green-700 flex items-center gap-1">
+                              <Briefcase className="h-3 w-3" />
+                              実務経験
+                            </Badge>
+                          )}
+                          <Badge variant="secondary">
+                            {skill.level}
+                          </Badge>
+                        </div>
                       </CardTitle>
                     </CardHeader>
                     <CardContent>
@@ -169,7 +189,7 @@ export const SkillSection = () => {
               key={category.category}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
+              transition={{ duration: 0.3, delay: 0.05 }}
             >
               <h3 className="text-xl font-semibold mb-6">{category.category}</h3>
               <div className="flex flex-wrap gap-4">
@@ -181,14 +201,22 @@ export const SkillSection = () => {
                       initial={{ opacity: 0, scale: 0.8 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       transition={{ 
-                        duration: 0.4, 
-                        delay: skillIndex * 0.1 
+                        duration: 0.2, 
+                        delay: skillIndex * 0.05 
                       }}
                     >
-                      <Badge variant="outline" className="flex items-center gap-2 px-3 py-2 text-sm">
-                        <IconComponent className="h-4 w-4" />
-                        {skill.name}
-                      </Badge>
+                      <div className="flex items-center gap-2">
+                        <Badge variant="outline" className="flex items-center gap-2 px-3 py-2 text-sm">
+                          <IconComponent className="h-4 w-4" />
+                          {skill.name}
+                        </Badge>
+                        {skill.hasWorkExperience && (
+                          <Badge className="text-xs bg-green-600 hover:bg-green-700 flex items-center gap-1 px-2 py-1">
+                            <Briefcase className="h-3 w-3" />
+                            実務
+                          </Badge>
+                        )}
+                      </div>
                     </motion.div>
                   )
                 })}
@@ -204,7 +232,7 @@ export const SkillSection = () => {
               key={category.category}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: categoryIndex * 0.2 }}
+              transition={{ duration: 0.3, delay: categoryIndex * 0.1 }}
             >
               <h3 className="text-xl font-semibold mb-6">{category.category}</h3>
               <div className="flex flex-wrap gap-4">
@@ -216,8 +244,8 @@ export const SkillSection = () => {
                       initial={{ opacity: 0, scale: 0.8 }}
                       whileInView={{ opacity: 1, scale: 1 }}
                       transition={{ 
-                        duration: 0.4, 
-                        delay: categoryIndex * 0.2 + skillIndex * 0.1 
+                        duration: 0.2, 
+                        delay: categoryIndex * 0.1 + skillIndex * 0.05 
                       }}
                     >
                       <Badge variant="outline" className="flex items-center gap-2 px-3 py-2 text-sm">

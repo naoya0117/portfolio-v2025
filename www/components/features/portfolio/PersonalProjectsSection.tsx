@@ -15,8 +15,8 @@ const personalProjects = [
     technologies: ["Linux", "Docker"],
     status: "進行中",
     links: {
-      github: "https://github.com",
-      project: "https://project-page.com"
+      github: "https://github.com/naoya0117/linux-from-scratch",
+      project: "https://linuxfromscratch.org/"
     },
     icon: Terminal
   },
@@ -29,7 +29,7 @@ const personalProjects = [
     award: "授業内評価 2位",
     duration: "1ヶ月",
     links: {
-      github: "https://github.com"
+      github: "https://github.com/naoya0117/vim-tetris"
     },
     icon: Gamepad2
   }
