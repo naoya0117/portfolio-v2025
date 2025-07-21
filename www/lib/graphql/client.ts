@@ -6,7 +6,8 @@ import {
   mockSkills, 
   mockExperiences, 
   mockMonologues, 
-  mockBlogPosts 
+  mockBlogPosts,
+  mockCodeCategories
 } from '@/lib/data/mock'
 
 const typeDefs = gql`
@@ -56,6 +57,34 @@ const typeDefs = gql`
     publishedAt: String
     createdAt: String!
     updatedAt: String!
+    url: String
+    urlPreview: UrlPreview
+    relatedBlogPosts: [String!]
+    series: String
+    category: String
+    codeCategory: CodeCategory
+    difficulty: String
+    likeCount: Int
+  }
+
+  type UrlPreview {
+    title: String!
+    description: String
+    imageUrl: String
+    siteName: String
+    url: String!
+    favicon: String
+    createdAt: String!
+  }
+
+  type CodeCategory {
+    id: ID!
+    name: String!
+    slug: String!
+    description: String
+    parentId: String
+    color: String
+    icon: String
   }
 
   type BlogPost {
@@ -88,6 +117,7 @@ const typeDefs = gql`
     monologue(id: ID!): Monologue
     blogPosts: [BlogPost!]!
     blogPost(slug: String!): BlogPost
+    codeCategories: [CodeCategory!]!
   }
 `
 
@@ -119,7 +149,8 @@ const resolvers = {
       mockMonologues.find(m => m.id === id && m.isPublished),
     blogPosts: () => mockBlogPosts.filter(p => p.status === 'PUBLISHED'),
     blogPost: (_: unknown, { slug }: { slug: string }) => 
-      mockBlogPosts.find(p => p.slug === slug && p.status === 'PUBLISHED')
+      mockBlogPosts.find(p => p.slug === slug && p.status === 'PUBLISHED'),
+    codeCategories: () => mockCodeCategories
   }
 }
 

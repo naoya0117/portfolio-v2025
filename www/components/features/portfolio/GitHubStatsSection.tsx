@@ -64,7 +64,7 @@ export const GitHubStatsSection = () => {
               </CardHeader>
               <CardContent className="flex justify-center">
                 <img
-                  src="https://github-readme-stats.vercel.app/api/top-langs/?username=naoya0117&layout=compact&theme=light&hide_border=true"
+                  src="https://github-readme-stats.vercel.app/api/top-langs/?username=naoya0117&layout=compact&theme=light&hide_border=true&langs_count=10"
                   alt="Top Languages"
                   className="max-w-full h-auto rounded-lg"
                 />

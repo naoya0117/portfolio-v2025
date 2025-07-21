@@ -42,7 +42,7 @@ export interface Experience {
 export interface Monologue {
   id: string
   content: string
-  contentType: "TEXT" | "CODE" | "IMAGE"
+  contentType: "TEXT" | "CODE" | "IMAGE" | "URL_PREVIEW"
   codeLanguage?: string
   codeSnippet?: string
   tags: string[]
@@ -50,6 +50,36 @@ export interface Monologue {
   publishedAt?: string
   createdAt: string
   updatedAt: string
+  
+  // 新規フィールド
+  url?: string
+  urlPreview?: UrlPreview
+  relatedBlogPosts?: string[]
+  series?: string
+  category?: string
+  codeCategory?: CodeCategory
+  difficulty?: "BEGINNER" | "INTERMEDIATE" | "ADVANCED"
+  likeCount?: number
+}
+
+export interface UrlPreview {
+  title: string
+  description?: string
+  imageUrl?: string
+  siteName?: string
+  url: string
+  favicon?: string
+  createdAt: string
+}
+
+export interface CodeCategory {
+  id: string
+  name: string
+  slug: string
+  description?: string
+  parentId?: string
+  color?: string
+  icon?: string
 }
 
 export interface BlogPost {

@@ -210,12 +210,6 @@ export const SkillSection = () => {
                           <IconComponent className="h-4 w-4" />
                           {skill.name}
                         </Badge>
-                        {skill.hasWorkExperience && (
-                          <Badge className="text-xs bg-green-600 hover:bg-green-700 flex items-center gap-1 px-2 py-1">
-                            <Briefcase className="h-3 w-3" />
-                            実務
-                          </Badge>
-                        )}
                       </div>
                     </motion.div>
                   )
