@@ -7,6 +7,7 @@ import { TeamProjectsSection } from "@/components/features/portfolio/TeamProject
 import { PersonalProjectsSection } from "@/components/features/portfolio/PersonalProjectsSection"
 import { WorkExperienceSection } from "@/components/features/portfolio/WorkExperienceSection"
 import { GitHubStatsSection } from "@/components/features/portfolio/GitHubStatsSection"
+import { CTASection } from "@/components/features/home/CTASection"
 import { PageContainer } from "@/components/layout/PageContainer"
 
 export default function Home() {
@@ -19,6 +20,7 @@ export default function Home() {
       <PersonalProjectsSection />
       <WorkExperienceSection />
       <GitHubStatsSection />
+      <CTASection />
     </PageContainer>
   )
 }
