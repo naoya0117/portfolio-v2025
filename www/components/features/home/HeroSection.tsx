@@ -126,25 +126,39 @@ export const HeroSection = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.3 }}
-            className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
+            className="flex flex-col items-center gap-6 mb-16"
           >
+            {/* Primary action */}
             <a href="#skills">
               <Button
                 size="lg"
-                className="text-lg px-8 py-4 h-auto"
+                className="text-lg px-12 py-4 h-auto"
               >
                 スキルを見る
               </Button>
             </a>
-            <Link href="/blog">
-              <Button
-                variant="outline"
-                size="lg"
-                className="text-lg px-8 py-4 h-auto"
-              >
-                ブログを読む
-              </Button>
-            </Link>
+            
+            {/* Secondary actions */}
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link href="/monologue">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="text-base px-8 py-3 h-auto min-w-[180px]"
+                >
+                  モノローグを見る
+                </Button>
+              </Link>
+              <Link href="/blog">
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="text-base px-8 py-3 h-auto min-w-[180px]"
+                >
+                  ブログを読む
+                </Button>
+              </Link>
+            </div>
           </motion.div>
         </motion.div>
 
