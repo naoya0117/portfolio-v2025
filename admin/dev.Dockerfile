@@ -13,6 +13,7 @@ RUN  npm config set prefix '~/.npm-global'
 USER nonroot
 WORKDIR /admin
 
+ENV PORT=8000
 EXPOSE 8000
 
-CMD ["npm", "run", "dev", "-p", "8000"]
+CMD ["npm", "run", "dev"]
