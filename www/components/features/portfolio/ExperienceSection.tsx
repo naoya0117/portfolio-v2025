@@ -10,14 +10,14 @@ const experiences = [
     id: "1",
     date: "2025年4月",
     title: "同大学の修士課程に進学",
-    description: "情報科学系大学院",
+    description: "Kubernetesを学習中。",
     isCurrent: true
   },
   {
     id: "2", 
     date: "2025年3月",
     title: "大学を卒業",
-    description: "情報系大学",
+    description: "コンテナ技術を卒論テーマとして着手。",
     isCurrent: false
   },
   {
@@ -30,15 +30,15 @@ const experiences = [
   {
     id: "4",
     date: "2021年3月",
-    title: "静岡の普通科高校卒業",
-    description: "",
+    title: "静岡東高校普通科を卒業",
+    description: "部活動でマンドリンに熱中。現在も社会人団体に所属し、合奏に参加している。",
     isCurrent: false
   },
   {
     id: "5",
     date: "2003年1月",
     title: "誕生",
-    description: "",
+    description: "小学1年生から中学3年生まで剣道をやっていた。",
     isCurrent: false
   }
 ]
