@@ -27,8 +27,6 @@ services:
       - '8000:8000'
     volumes:
       - './admin:/admin'
-    profiles:
-      - 'mock'
 
   api:
     build:
@@ -64,7 +62,7 @@ services:
     volumes:
       - 'postgres_data:/var/lib/postgresql/data'
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres -d portfolio"]
+      test: [ "CMD-SHELL", "pg_isready -U postgres -d portfolio" ]
       interval: 5s
       timeout: 5s
       retries: 5

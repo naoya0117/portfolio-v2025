@@ -13,4 +13,6 @@ RUN  npm config set prefix '~/.npm-global'
 USER nonroot
 WORKDIR /www
 
+EXPOSE 3000
+
 CMD ["npm", "run", "dev"]

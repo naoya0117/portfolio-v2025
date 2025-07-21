@@ -18,4 +18,6 @@ RUN mkdir -p /go/pkg/mod/cache && \
 USER nonroot
 WORKDIR /api
 
+EXPOSE 8080
+
 CMD ["air"]
