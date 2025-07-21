@@ -91,9 +91,9 @@ export default function BlogPage() {
             transition={{ duration: 0.6 }}
             className="text-center mb-12"
           >
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">ブログ</h1>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4">Blog</h1>
             <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-              技術的な学びや開発体験について、より詳細に記事にしています。
+              日々の学びや開発の記録を記事としてまとめています。
             </p>
           </motion.div>
           
