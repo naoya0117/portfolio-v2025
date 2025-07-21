@@ -1,13 +1,14 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { CalendarDays, Code, MessageSquare, Image, ExternalLink, Heart, Trophy } from "lucide-react"
+import { CalendarDays, Code, MessageSquare, Image, ExternalLink, Heart, Trophy, BookOpen } from "lucide-react"
 import { Card, CardContent, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Monologue } from "@/lib/types/generated"
 import { UrlPreviewCard } from "./UrlPreviewCard"
 import { cn } from "@/lib/utils"
+import Link from "next/link"
 
 interface MonologueCardProps {
   monologue: Monologue
@@ -27,6 +28,19 @@ const formatDate = (dateString: string) => {
   })
 }
 
+// URLを検出する関数
+const detectUrlInText = (text: string): { url: string; position: number } | null => {
+  const urlRegex = /(https?:\/\/[^\s]+)/g
+  const match = urlRegex.exec(text)
+  if (match) {
+    return {
+      url: match[1],
+      position: match.index!
+    }
+  }
+  return null
+}
+
 const getDifficultyInfo = (difficulty?: string) => {
   switch (difficulty) {
     case "BEGINNER":
@@ -44,10 +58,10 @@ const getContentTypeInfo = (contentType: string) => {
   switch (contentType) {
     case "CODE":
       return { icon: Code, label: "コード", color: "text-blue-600" }
-    case "URL_PREVIEW":
-      return { icon: ExternalLink, label: "リンク", color: "text-purple-600" }
     case "IMAGE":
       return { icon: Image, label: "画像", color: "text-green-600" }
+    case "BLOG":
+      return { icon: BookOpen, label: "ブログ", color: "text-purple-600" }
     default:
       return { icon: MessageSquare, label: "テキスト", color: "text-gray-600" }
   }
@@ -87,42 +101,49 @@ export const MonologueCard = ({
     }
   }
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-    >
-      <Card className="h-full hover:shadow-lg transition-all duration-300 cursor-pointer group">
+  const cardContent = (
+    <Card className="hover:shadow-md transition-all duration-200 cursor-pointer group bg-card/50 backdrop-blur-sm border-border/50">
         <CardHeader className="pb-3">
-          <div className="flex items-start justify-between">
-            <div className="flex items-center space-x-2">
-              <Icon className={cn("h-5 w-5", contentInfo.color)} />
-              <span className="text-sm text-muted-foreground">
-                {contentInfo.label}
-              </span>
-              
-              {/* 難易度バッジ */}
-              {difficultyInfo && (
-                <Badge variant="outline" className="text-xs h-5">
-                  <div className={cn("w-2 h-2 rounded-full mr-1", difficultyInfo.color)} />
-                  {difficultyInfo.label}
-                </Badge>
-              )}
-              
-              {/* シリーズバッジ */}
-              {monologue.series && (
-                <Badge variant="secondary" className="text-xs h-5">
-                  <Trophy className="w-3 h-3 mr-1" />
-                  {monologue.series}
-                </Badge>
-              )}
-            </div>
-            
-            <div className="flex items-center text-sm text-muted-foreground">
-              <CalendarDays className="h-4 w-4 mr-1" />
+          {/* タイムライン向けヘッダー - 日付を大きく */}
+          <div className="mb-3">
+            <div className="flex items-center text-xs text-muted-foreground mb-1">
+              <CalendarDays className="h-3 w-3 mr-1" />
               {formatDate(monologue.publishedAt || monologue.createdAt)}
             </div>
+            
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <Icon className={cn("h-4 w-4", contentInfo.color)} />
+                <span className="text-sm font-medium text-foreground">
+                  {contentInfo.label}
+                </span>
+              </div>
+              
+              {/* ライクカウントをヘッダーに移動 */}
+              <div className="flex items-center text-xs text-muted-foreground">
+                <Heart className="w-3 h-3 mr-1" />
+                {monologue.likeCount || 0}
+              </div>
+            </div>
+          </div>
+
+          {/* バッジ行 */}
+          <div className="flex flex-wrap items-center gap-2">
+            {/* 難易度バッジ */}
+            {difficultyInfo && (
+              <Badge variant="outline" className="text-xs h-5">
+                <div className={cn("w-2 h-2 rounded-full mr-1", difficultyInfo.color)} />
+                {difficultyInfo.label}
+              </Badge>
+            )}
+            
+            {/* シリーズバッジ */}
+            {monologue.series && (
+              <Badge variant="secondary" className="text-xs h-5">
+                <Trophy className="w-3 h-3 mr-1" />
+                {monologue.series}
+              </Badge>
+            )}
           </div>
           
           {/* コードカテゴリー */}
@@ -145,17 +166,50 @@ export const MonologueCard = ({
 
         <CardContent>
           <div className="space-y-4">
-            {/* URLプレビュー */}
-            {monologue.contentType === "URL_PREVIEW" && monologue.urlPreview && showPreview ? (
-              <UrlPreviewCard
-                preview={monologue.urlPreview}
-                size="compact"
-                className="mb-2"
-              />
+            {/* ブログタイプの場合の特別表示 */}
+            {monologue.contentType === "BLOG" && (monologue as any).blogData ? (
+              <>
+                {/* ブログタイトル */}
+                <h3 className="text-lg font-semibold text-foreground leading-tight">
+                  {(monologue as any).blogData.title}
+                </h3>
+                
+                {/* ブログ概要 */}
+                {(monologue as any).blogData.excerpt && (
+                  <p className="text-sm text-muted-foreground leading-relaxed">
+                    {(monologue as any).blogData.excerpt}
+                  </p>
+                )}
+                
+                {/* ブログへのリンク */}
+                <div className="flex items-center space-x-2 text-sm text-primary">
+                  <BookOpen className="w-4 h-4" />
+                  <span>記事を読む</span>
+                  <ExternalLink className="w-3 h-3" />
+                </div>
+              </>
             ) : (
-              <p className="text-sm leading-relaxed line-clamp-3">
-                {monologue.content}
-              </p>
+              <>
+                {/* 通常のテキストコンテンツ */}
+                <p className="text-base leading-relaxed">
+                  {monologue.content}
+                </p>
+                
+                {/* URLプレビュー - テキスト内のURLまたは明示的なurlPreview */}
+                {showPreview && (
+                  (monologue.urlPreview || detectUrlInText(monologue.content)) && (
+                    <UrlPreviewCard
+                      preview={monologue.urlPreview || {
+                        title: "リンクプレビュー",
+                        url: detectUrlInText(monologue.content)?.url || "",
+                        createdAt: new Date().toISOString()
+                      }}
+                      size="compact"
+                      className="mb-2"
+                    />
+                  )
+                )}
+              </>
             )}
 
             {/* コードスニペット */}
@@ -189,18 +243,17 @@ export const MonologueCard = ({
               ))}
             </div>
             
-            {/* フッター */}
-            <div className="flex items-center justify-between pt-2 border-t">
-              <div className="flex items-center gap-4 text-muted-foreground">
-                {/* いいね */}
+            {/* フッター - シンプル化 */}
+            <div className="flex items-center justify-between pt-3 border-t">
+              <div className="flex items-center gap-3">
+                {/* いいねボタン */}
                 <Button
                   variant="ghost"
                   size="sm"
-                  className="h-7 px-2 text-xs"
+                  className="h-6 px-2 text-xs hover:text-primary"
                   onClick={handleLike}
                 >
-                  <Heart className="w-3 h-3 mr-1" />
-                  {monologue.likeCount || 0}
+                  <Heart className="w-3 h-3" />
                 </Button>
               </div>
               
@@ -213,7 +266,23 @@ export const MonologueCard = ({
             </div>
           </div>
         </CardContent>
-      </Card>
+    </Card>
+  )
+
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
+    >
+      {/* ブログタイプの場合はリンクでラップ */}
+      {monologue.contentType === "BLOG" && monologue.url ? (
+        <Link href={monologue.url} className="block">
+          {cardContent}
+        </Link>
+      ) : (
+        cardContent
+      )}
     </motion.div>
   )
 }

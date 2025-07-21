@@ -146,8 +146,8 @@ var mockMonologues = []*models.Monologue{
 	},
 	{
 		ID:          "3",
-		Content:     "便利なReact Hooksライブラリ",
-		ContentType: models.ContentTypeURLPreview,
+		Content:     "便利なReact Hooksライブラリを見つけました。https://github.com/streamich/react-use には様々なカスタムフックが用意されていて、開発が効率的になりそうです。",
+		ContentType: models.ContentTypeText,
 		URL:         stringPtr("https://github.com/streamich/react-use"),
 		URLPreview: &models.URLPreview{
 			Title:       "react-use",

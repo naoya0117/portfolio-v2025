@@ -5,6 +5,7 @@ package resolvers
 import (
 	"context"
 	"fmt"
+	"regexp"
 	"time"
 
 	"github.com/naoya0117/portfolio-v2025-api/internal/database"
@@ -19,6 +20,14 @@ type Resolver struct{
 // generateID generates a simple ID for demo purposes
 func generateID() string {
 	return fmt.Sprintf("%d", time.Now().UnixNano())
+}
+
+// detectURLInText detects URLs in text content
+func detectURLInText(text string) string {
+	urlRegex := `https?://[^\s]+`
+	re := regexp.MustCompile(urlRegex)
+	match := re.FindString(text)
+	return match
 }
 
 // CreatedAt is the resolver for the createdAt field.
@@ -127,17 +136,161 @@ func (r *mutationResolver) DeleteCodeCategory(ctx context.Context, id string) (b
 
 // CreateMonologue is the resolver for the createMonologue field.
 func (r *mutationResolver) CreateMonologue(ctx context.Context, input models.CreateMonologueInput) (*models.Monologue, error) {
-	panic("not implemented")
+	now := time.Now()
+	
+	var codeCategory *models.CodeCategory
+	if input.CodeCategoryID != nil {
+		for _, cat := range mockCodeCategories {
+			if cat.ID == *input.CodeCategoryID {
+				codeCategory = cat
+				break
+			}
+		}
+	}
+
+	isPublished := false
+	if input.IsPublished != nil {
+		isPublished = *input.IsPublished
+	}
+	
+	var publishedAt *string
+	if isPublished {
+		publishedAtTime := now.Format(time.RFC3339)
+		publishedAt = &publishedAtTime
+	}
+
+	newMonologue := &models.Monologue{
+		ID:               generateID(),
+		Content:          input.Content,
+		ContentType:      input.ContentType,
+		CodeLanguage:     input.CodeLanguage,
+		CodeSnippet:      input.CodeSnippet,
+		Tags:             input.Tags,
+		IsPublished:      isPublished,
+		PublishedAt:      publishedAt,
+		CreatedAt:        now,
+		UpdatedAt:        now,
+		URL:              input.URL,
+		Series:           input.Series,
+		Category:         input.Category,
+		CodeCategory:     codeCategory,
+		Difficulty:       input.Difficulty,
+		LikeCount:        intPtr(0),
+	}
+
+	// Generate URL preview if URL is provided or detected in content
+	urlToPreview := ""
+	if input.URL != nil && *input.URL != "" {
+		urlToPreview = *input.URL
+	} else if detectedURL := detectURLInText(input.Content); detectedURL != "" {
+		urlToPreview = detectedURL
+		newMonologue.URL = &detectedURL
+	}
+	
+	if urlToPreview != "" {
+		preview, err := r.GenerateURLPreview(ctx, urlToPreview)
+		if err == nil {
+			newMonologue.URLPreview = preview
+		}
+	}
+
+	mockMonologues = append(mockMonologues, newMonologue)
+	return newMonologue, nil
 }
 
 // UpdateMonologue is the resolver for the updateMonologue field.
 func (r *mutationResolver) UpdateMonologue(ctx context.Context, id string, input models.UpdateMonologueInput) (*models.Monologue, error) {
-	panic("not implemented")
+	for i, monologue := range mockMonologues {
+		if monologue.ID == id {
+			// Track changes that require URL preview regeneration
+			urlChanged := false
+			contentChanged := false
+			
+			// Update fields if provided
+			if input.Content != nil {
+				mockMonologues[i].Content = *input.Content
+				contentChanged = true
+			}
+			if input.ContentType != nil {
+				mockMonologues[i].ContentType = *input.ContentType
+			}
+			if input.CodeLanguage != nil {
+				mockMonologues[i].CodeLanguage = input.CodeLanguage
+			}
+			if input.CodeSnippet != nil {
+				mockMonologues[i].CodeSnippet = input.CodeSnippet
+			}
+			if input.Tags != nil {
+				mockMonologues[i].Tags = input.Tags
+			}
+			if input.IsPublished != nil {
+				mockMonologues[i].IsPublished = *input.IsPublished
+				if *input.IsPublished && mockMonologues[i].PublishedAt == nil {
+					now := time.Now().Format(time.RFC3339)
+					mockMonologues[i].PublishedAt = &now
+				}
+			}
+			if input.URL != nil {
+				mockMonologues[i].URL = input.URL
+				urlChanged = true
+			}
+			
+			// Regenerate URL preview if URL changed or content changed (might contain new URLs)
+			if urlChanged || contentChanged {
+				urlToPreview := ""
+				if mockMonologues[i].URL != nil && *mockMonologues[i].URL != "" {
+					urlToPreview = *mockMonologues[i].URL
+				} else if detectedURL := detectURLInText(mockMonologues[i].Content); detectedURL != "" {
+					urlToPreview = detectedURL
+					mockMonologues[i].URL = &detectedURL
+				}
+				
+				if urlToPreview != "" {
+					preview, err := r.GenerateURLPreview(ctx, urlToPreview)
+					if err == nil {
+						mockMonologues[i].URLPreview = preview
+					}
+				} else {
+					mockMonologues[i].URLPreview = nil
+				}
+			}
+			if input.Series != nil {
+				mockMonologues[i].Series = input.Series
+			}
+			if input.Category != nil {
+				mockMonologues[i].Category = input.Category
+			}
+			if input.CodeCategoryID != nil {
+				var codeCategory *models.CodeCategory
+				for _, cat := range mockCodeCategories {
+					if cat.ID == *input.CodeCategoryID {
+						codeCategory = cat
+						break
+					}
+				}
+				mockMonologues[i].CodeCategory = codeCategory
+			}
+			if input.Difficulty != nil {
+				mockMonologues[i].Difficulty = input.Difficulty
+			}
+			
+			mockMonologues[i].UpdatedAt = time.Now()
+			return mockMonologues[i], nil
+		}
+	}
+	return nil, fmt.Errorf("monologue not found")
 }
 
 // DeleteMonologue is the resolver for the deleteMonologue field.
 func (r *mutationResolver) DeleteMonologue(ctx context.Context, id string) (bool, error) {
-	panic("not implemented")
+	for i, monologue := range mockMonologues {
+		if monologue.ID == id {
+			// Remove from slice
+			mockMonologues = append(mockMonologues[:i], mockMonologues[i+1:]...)
+			return true, nil
+		}
+	}
+	return false, fmt.Errorf("monologue not found")
 }
 
 // Profile is the resolver for the profile field.
@@ -197,6 +350,11 @@ func (r *queryResolver) Monologues(ctx context.Context, limit *int, offset *int,
 	if categoryID != nil || len(tags) > 0 || difficulty != nil {
 		result := make([]*models.Monologue, 0)
 		for _, m := range filtered {
+			// Filter by category
+			if categoryID != nil && (m.CodeCategory == nil || m.CodeCategory.ID != *categoryID) {
+				continue
+			}
+			
 			// Filter by difficulty
 			if difficulty != nil && (m.Difficulty == nil || *m.Difficulty != *difficulty) {
 				continue

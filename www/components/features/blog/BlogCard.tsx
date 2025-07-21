@@ -32,9 +32,9 @@ export const BlogCard = ({ post, index }: BlogCardProps) => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.3 }}
     >
       <Link href={`/blog/${post.slug}`}>
         <Card className="h-full hover:shadow-lg transition-shadow duration-300 cursor-pointer group">

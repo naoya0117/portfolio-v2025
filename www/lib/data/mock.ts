@@ -233,8 +233,8 @@ export const mockMonologues: Monologue[] = [
   },
   {
     id: "3",
-    content: "便利なReact Hooksライブラリ",
-    contentType: "URL_PREVIEW",
+    content: "便利なReact Hooksライブラリを見つけました。https://github.com/streamich/react-use には様々なカスタムフックが用意されていて、開発が効率的になりそうです。",
+    contentType: "TEXT",
     url: "https://github.com/streamich/react-use",
     urlPreview: {
       title: "react-use",
@@ -316,8 +316,8 @@ const isStringArray = (arr: unknown[]): arr is string[] => {
   },
   {
     id: "6",
-    content: "Next.js 15の新機能まとめ記事",
-    contentType: "URL_PREVIEW",
+    content: "Next.js 15の新機能まとめ記事を読みました。https://nextjs.org/blog/next-15 パフォーマンス改善やReact 19への対応など、多くの変更が含まれています。",
+    contentType: "TEXT",
     url: "https://nextjs.org/blog/next-15",
     urlPreview: {
       title: "Next.js 15",
